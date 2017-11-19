@@ -57,7 +57,48 @@
     _viewCenter.backgroundColor = [UIColor orangeColor];
     
     [_superView addSubview:_viewCenter];
+    //动画效果
+    [UIView beginAnimations:nil context:nil];
+    [UIView setAnimationDuration:1];
+    //自动布局，设置距离相对父视图的左右上下边距的比例变化，边长也相对父视图的比例变化
+    //右上角子视图，左侧变化了，其他没变
+    _label02.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+    //右下角子视图，左侧上侧变化
+    _label03.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin|UIViewAutoresizingFlexibleTopMargin;
+    //左下角子视图，上侧变化
+    _label04.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+    //中间子视图，宽度变化，上下侧都变化
+    _viewCenter.autoresizingMask = UIViewAutoresizingFlexibleTopMargin|UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleBottomMargin;
+    //动画结束
+    [UIView commitAnimations];
     
+    
+    
+
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    static BOOL isLarge = NO;
+    //开始动画
+    [UIView beginAnimations:nil context:nil];
+    //动画时间
+    [UIView setAnimationDuration:1];
+    
+    if(isLarge == NO)
+    {
+        //touch触发变大事件
+        _superView.frame = CGRectMake(10, 10, 300, 400);
+    }
+    else
+    {
+        //触发变小事件
+        _superView.frame = CGRectMake(20, 20, 180, 280);
+    }
+    //结束时修改isLarge值
+    isLarge = !isLarge;
+    //动画结束
+    [UIView commitAnimations];
     
 }
 
